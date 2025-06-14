@@ -2,88 +2,114 @@
 <!DOCTYPE html>
 <html lang="ms">
 <head>
-    <meta charset="UTF-8">
-    <title>Movie Night Invite</title>
-    <style>
-        body {
-            margin: 0;
-            font-family: 'Arial', sans-serif;
-            background-image: url('bg.jpeg');
-            background-size: contain;
-            background-repeat: no-repeat;
-            background-position: center;
-            background-color: black;
-            color: white;
-            text-align: center;
-        }
-        .container {
-            padding: 60px 20px;
-        }
-        h1 {
-            font-size: 38px;
-            margin-bottom: 20px;
-        }
-        .question {
-            font-size: 26px;
-            margin: 20px 0;
-        }
-        .btn {
-            background-color: #ffffff;
-            color: #000000;
-            padding: 12px 25px;
-            margin: 10px;
-            border: none;
-            font-size: 20px;
-            cursor: pointer;
-            border-radius: 10px;
-        }
-        .btn:hover {
-            background-color: #e0e0e0;
-        }
-        #reaction {
-            margin-top: 30px;
-            display: none;
-        }
-        #reaction img {
-            width: 240px;
-        }
-        .emoji {
-            font-size: 30px;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Malam Filem Spesial</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: url('bg.jpeg') no-repeat center center fixed;
+      background-size: cover;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .container {
+      background: rgba(0, 0, 0, 0.65);
+      padding: 40px;
+      border-radius: 20px;
+      max-width: 700px;
+      text-align: center;
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+    }
+    h1 {
+      font-size: 40px;
+      margin-bottom: 10px;
+    }
+    p {
+      font-size: 24px;
+      margin-bottom: 25px;
+    }
+    .btn {
+      font-size: 20px;
+      padding: 12px 30px;
+      margin: 10px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .btn-yes {
+      background-color: #4CAF50;
+      color: white;
+    }
+    .btn-yes:hover {
+      background-color: #45a049;
+    }
+    .btn-no {
+      background-color: #f44336;
+      color: white;
+    }
+    .btn-no:hover {
+      background-color: #d32f2f;
+    }
+    #step2, #reaction {
+      margin-top: 30px;
+      display: none;
+    }
+    #reaction img {
+      width: 180px;
+      margin-top: 20px;
+    }
+    .fade-in {
+      animation: fadeIn 0.8s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1>👋🏻 Hai Koki</h1>
-        <div class="question">Saya ada idea kecil untuk malam ini. Awak nak dengar?</div>
-        <button class="btn" onclick="showSecond()">Ya</button>
-        <button class="btn" onclick="hideAll()">Tak</button>
+  <div class="container fade-in">
+    <h1>Hai koki 🌙</h1>
+    <p>Malam ini ada idea comel... nak dengar cadangannya?</p>
+    <button class="btn btn-yes" onclick="nextStep()">Ya</button>
+    <button class="btn btn-no" onclick="nope()">Tidak</button>
 
-        <div id="secondStep" style="display:none;">
-            <div class="question">Saya jemput awak dan Moki 🧸 untuk tengok filem malam ini. Setuju?</div>
-            <button class="btn" onclick="showReaction()">Ya</button>
-            <button class="btn" onclick="hideAll()">Tak</button>
-        </div>
-
-        <div id="reaction">
-            <div class="question">
-                Yeay! Jangan lupa sediakan matcha awak, dan susu untuk Moki 🧸 😄
-            </div>
-            <img src="https://media1.tenor.com/m/L-cuwITenQYAAAAC/dancing.gif" alt="Funny cat dance GIF">
-        </div>
+    <div id="step2">
+      <p>Saya nak jemput awak dan Moki tengok filem Titanic malam ni 🎬<br>Setuju?</p>
+      <button class="btn btn-yes" onclick="showReaction()">Setuju</button>
+      <button class="btn btn-no" onclick="nope()">Tak nak</button>
     </div>
 
-    <script>
-        function showSecond() {
-            document.getElementById('secondStep').style.display = 'block';
-        }
-        function showReaction() {
-            document.getElementById('reaction').style.display = 'block';
-        }
-        function hideAll() {
-            document.getElementById('secondStep').style.display = 'none';
-            document.getElementById('reaction').style.display = 'none';
-        }
-    </script>
+    <div id="reaction"></div>
+  </div>
+
+  <script>
+    function nextStep() {
+      document.getElementById('step2').style.display = 'block';
+    }
+
+    function showReaction() {
+      document.getElementById('reaction').innerHTML = `
+        <p class="fade-in">Yay! Jangan lupa sediakan matcha untuk awak dan susu untuk Moki 🐻💚</p>
+        <img src="https://media1.tenor.com/m/L-cuwITenQYAAAAC/dancing.gif" alt="Cat dancing" class="fade-in" />
+      `;
+      document.getElementById('reaction').style.display = 'block';
+    }
+
+    function nope() {
+      document.getElementById('reaction').innerHTML = `
+        <p class="fade-in">Okay, mungkin lain kali 😅</p>
+      `;
+      document.getElementById('reaction').style.display = 'block';
+    }
+  </script>
 </body>
 </html>
